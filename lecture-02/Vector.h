@@ -81,6 +81,15 @@ public:
     // ќбъ€вление функции, дружественной классу Vector
     friend Vector operator*(int l, const Vector& r);
 
+
+    // ќператор индекса
+    int& operator[](int index);
+
+    const int& operator[](int index) const;
+
+   
+    /*
+    
     // Ћогические операторы: ==, !=, >, <, >=, <=
     friend bool operator==(const Vector& l, const Vector& r);
 
@@ -89,6 +98,7 @@ public:
 
     Vector& operator*=(int r);
 
+    */
 };
 
 Vector operator*(const Vector& l, int r);

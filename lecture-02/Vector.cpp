@@ -117,3 +117,21 @@ Vector operator*(int l, const Vector& r) {
 Vector operator*(const Vector& l, int r) {
     return r * l;
 }
+
+int& Vector::operator[](int index) {
+    if (index < 0
+        || index >= size) {
+        throw "Incorrect index";
+    }
+
+    return data[index];
+}
+
+const int& Vector::operator[](int index) const {
+    if (index < 0
+        || index >= size) {
+        throw "Incorrect index";
+    }
+
+    return data[index];
+}
