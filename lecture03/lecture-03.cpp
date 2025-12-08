@@ -51,7 +51,7 @@ public:
 
 // В начале класса наследника B - первые sizeof(A) байт - это поля класса A
 
-class B : public A {
+class B : public virtual A {
 
     // A base; -- все поля класса A
 
@@ -104,6 +104,38 @@ public:
 //   }
 // } 
 
+class C : public virtual A {
+
+    int c;
+
+public:
+
+    C(int a, int c) : A(a), c(c) {
+
+    }
+
+    int getC() const {
+        return c;
+    }
+
+};
+
+class D : public virtual B, public virtual C {
+
+    int d;
+
+public:
+    D(int a, int b, int c, int d) :
+        A(a),
+        C(a, c),    // вызывается после вызова конструтора класса B
+        B(a, b), // вызывается в первую очередь, т.к. первый класс в иерархии
+        d(d)     // вызывается после вызова всех базовых конструкторов
+    {
+
+    }
+};
+
+
 void foo(A* aptr) {
     if (aptr->getA() > 0) {
         aptr->print();
@@ -130,4 +162,13 @@ int main() {
 
     // foo_A*((A*)&b);
     foo(&b);
+
+    D d(1, 2, 3, 4);
+
+    B* aptr = &d;
+    C* cptr = &d;
+
+    cout << "aptr=" << aptr << endl
+        << "cptr=" << cptr << endl;
+
 }
